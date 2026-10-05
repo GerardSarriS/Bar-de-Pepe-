@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ca" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Bar de Pepe: la història dels cinc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#dff3f2; --tile:#c5e7e6; --ink:#0b3553; --ink2:#3f6179; --surface:#ffffff; --surface2:#eef9f9; --line:#b3dcdc;
+  --water:#27b3d1; --rope-a:#ee4b3b; --rope-b:#ffffff; --sun:#ffc533;
+  --c-aleix:#e5533d; --c-jaume:#f5b014; --c-ferry:#d6458f; --c-guillem:#7a5af0; --c-gerard:#2e9e5b;
+  --on-aleix:#fff; --on-jaume:#2a1c00; --on-ferry:#fff; --on-guillem:#fff; --on-gerard:#fff;
+  --shadow:#0b3553;
+  --display:'Bowlby One','Arial Black',Impact,system-ui,sans-serif;
+  --body:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#071f33; --tile:#0b2a43; --ink:#e4f6f6; --ink2:#9fc6d1; --surface:#10345a; --surface2:#0c2a47; --line:#1d4a69;
+    --water:#1989a6; --shadow:#000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#071f33; --tile:#0b2a43; --ink:#e4f6f6; --ink2:#9fc6d1; --surface:#10345a; --surface2:#0c2a47; --line:#1d4a69;
+  --water:#1989a6; --shadow:#000;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background-color:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.55;
+  background-image:
+    linear-gradient(var(--tile) 1px, transparent 1px),
+    linear-gradient(90deg, var(--tile) 1px, transparent 1px);
+  background-size:44px 44px;
+}
+.wrap{max-width:1040px; margin:0 auto; padding:0 18px}
+h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.08; letter-spacing:.005em}
+p{margin:0}
+:focus-visible{outline:3px solid var(--sun); outline-offset:3px; border-radius:6px}
+
+/* ---------- HERO ---------- */
+.hero{padding:44px 0 28px}
+.hero h1{font-size:clamp(2.7rem,12.5vw,6.4rem); color:var(--ink); text-shadow:4px 4px 0 var(--sun)}
+.hero .sub{max-width:34em; margin-top:18px; font-size:1.12rem; color:var(--ink2)}
+.pool{margin-top:30px; background:var(--surface); border:3px solid var(--ink); border-radius:18px; padding:16px 14px 6px; box-shadow:6px 6px 0 var(--shadow)}
+.pool-title{font-family:var(--display); font-size:1.05rem; margin-bottom:12px}
+.lane{margin-bottom:12px}
+.lane-label{display:flex; justify-content:space-between; gap:10px; font-weight:800; font-size:.92rem; margin-bottom:4px}
+.lane-label span:last-child{font-variant-numeric:tabular-nums; color:var(--ink2); font-weight:600}
+.lane-track{position:relative; height:48px; overflow:hidden; border-radius:6px;
+  background:var(--water) repeating-linear-gradient(100deg, rgba(255,255,255,.14) 0 2px, transparent 2px 24px)}
+.lane-track::before,.lane-track::after{content:""; position:absolute; left:0; right:0; height:7px;
+  background:repeating-linear-gradient(90deg,var(--rope-a) 0 12px,var(--rope-b) 12px 24px)}
+.lane-track::before{top:0} .lane-track::after{bottom:0}
+.swimmer{position:absolute; top:50%; width:38px; height:38px; margin-top:-19px; border-radius:50%;
+  display:grid; place-items:center; font-weight:800; font-size:.85rem; border:3px solid #fff;
+  left:calc((100% - 38px) * var(--p)); animation:swim 2.8s cubic-bezier(.22,.8,.25,1) both; animation-delay:calc(var(--n) * .14s)}
+.swimmer::before{content:""; position:absolute; right:100%; top:50%; width:80px; height:10px; margin-top:-5px; border-radius:10px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.75))}
+@keyframes swim{from{left:0}}
+.pool-note{font-size:.9rem; color:var(--ink2); padding:2px 0 10px}
+
+/* ---------- SECTIONS ---------- */
+section{padding:46px 0 8px}
+h2{font-size:clamp(1.7rem,6.5vw,2.7rem); max-width:16em}
+.lead{max-width:36em; margin-top:12px; color:var(--ink2)}
+
+/* ---------- CARDS ---------- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:28px 22px; margin-top:28px}
+.card{display:block; perspective:1400px; cursor:pointer; max-width:370px; width:100%; justify-self:center; -webkit-tap-highlight-color:transparent}
+.card-inner{display:grid; transition:transform .75s cubic-bezier(.3,.7,.2,1); transform-style:preserve-3d}
+.card.is-flipped .card-inner{transform:rotateY(180deg)}
+.face{grid-area:1/1; -webkit-backface-visibility:hidden; backface-visibility:hidden; border:3px solid var(--ink); border-radius:22px; overflow:hidden;
+  background:var(--surface); box-shadow:6px 6px 0 var(--shadow); display:flex; flex-direction:column}
+.back{transform:rotateY(180deg)}
+.band{background:var(--pc); color:var(--on); padding:14px 16px 16px; display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
+  background-image:repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 10px, transparent 10px 20px)}
+.ovr{font-family:var(--display); font-size:3.1rem; line-height:.9}
+.pos{font-weight:800; font-size:.9rem; margin-top:4px}
+.mono{justify-self:end; width:92px; height:92px; border-radius:50%; background:var(--surface); color:var(--pc); border:3px solid var(--ink);
+  display:grid; place-items:center; font-family:var(--display); font-size:3.2rem}
+.band-mid{display:flex; flex-direction:column; justify-content:flex-end}
+.gold-tag{display:inline-block; align-self:flex-start; background:var(--sun); color:#2a1c00; font-weight:800; font-size:.74rem; padding:2px 9px; border-radius:99px; border:2px solid var(--ink)}
+.body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:12px; flex:1}
+.name{font-family:var(--display); font-size:1.65rem}
+.epi{font-weight:800; color:var(--pc-text)}
+.alias{font-size:.9rem; color:var(--ink2)}
+.stats{display:grid; grid-template-columns:1fr 1fr; gap:9px 16px}
+.stat{font-size:.86rem; font-weight:600}
+.stat-row{display:flex; justify-content:space-between}
+.stat-row b{font-variant-numeric:tabular-nums}
+.bar{height:7px; background:var(--surface2); border:1.5px solid var(--ink); border-radius:9px; margin-top:3px; overflow:hidden}
+.bar i{display:block; height:100%; width:calc(var(--v) * 1%); background:var(--pc)}
+.quote{margin-top:auto; padding-top:10px; border-top:2px dashed var(--line); font-style:italic; font-size:.95rem}
+.hint{font-size:.78rem; color:var(--ink2)}
+.back .body{gap:10px}
+.back h3{font-size:1.15rem}
+.facts{margin:0; padding:0; list-style:none; display:grid; gap:9px; font-size:.95rem}
+.facts li{position:relative; padding-left:22px}
+.facts li::before{content:""; position:absolute; left:2px; top:.5em; width:10px; height:10px; border-radius:50%; background:var(--pc); border:2px solid var(--ink)}
+.best{margin-top:auto; font-weight:800; font-size:.9rem; background:var(--pc); color:var(--on); border-radius:10px; padding:8px 12px}
+.how{margin-top:26px; background:var(--surface); border:2px solid var(--ink); border-radius:14px; padding:12px 16px}
+.how summary{cursor:pointer; font-weight:800}
+.how ul{margin:10px 0 4px; padding-left:20px; display:grid; gap:4px; color:var(--ink2); font-size:.95rem}
+
+.no-js .card{cursor:default}
+.no-js .card-inner{display:flex; flex-direction:column; gap:16px; transform:none}
+.no-js .back{transform:none}
+.no-js .hint{display:none}
+
+/* ---------- TIMELINE ---------- */
+.tl{list-style:none; margin:30px 0 0; padding:0 0 0 38px; position:relative}
+.tl::before{content:""; position:absolute; left:8px; top:6px; bottom:6px; width:10px; border-radius:10px; border:2px solid var(--ink);
+  background:repeating-linear-gradient(180deg,var(--rope-a) 0 14px,var(--rope-b) 14px 28px)}
+.tl li{position:relative; margin-bottom:26px; max-width:40em}
+.tl li::before{content:""; position:absolute; left:-37px; top:5px; width:22px; height:22px; border-radius:50%; background:var(--sun); border:3px solid var(--ink)}
+.tl time{display:block; font-family:var(--display); font-size:.95rem; color:var(--ink2)}
+.tl h3{font-size:1.28rem; margin:3px 0 5px}
+.tl p{color:var(--ink)}
+.tag{display:inline-block; margin-top:7px; font-weight:800; font-size:.8rem; background:var(--surface); border:2px solid var(--ink); border-radius:99px; padding:1px 10px}
+
+/* ---------- CLOCK ---------- */
+.clock{margin-top:26px; background:var(--surface); border:3px solid var(--ink); border-radius:18px; padding:16px 14px 12px; box-shadow:6px 6px 0 var(--shadow)}
+.crow{display:grid; grid-template-columns:62px 1fr; align-items:center; gap:8px; margin-bottom:7px}
+.cname{font-weight:800; font-size:.88rem}
+.cells{display:grid; grid-template-columns:repeat(24,1fr); gap:2px}
+.cell{height:26px; padding:0; border:0; border-radius:3px; background:var(--cc); opacity:calc(.12 + var(--i) * .88); cursor:pointer}
+.cell[aria-pressed="true"]{outline:3px solid var(--ink); outline-offset:1px; opacity:1}
+.axis{display:grid; grid-template-columns:62px 1fr; gap:8px; font-size:.72rem; color:var(--ink2)}
+.axis div{display:grid; grid-template-columns:repeat(24,1fr)}
+.axis div span{grid-column:span 6}
+.readout{margin-top:10px; min-height:1.6em; font-weight:800}
+.notes{display:grid; gap:10px; margin-top:20px; padding:0; list-style:none; max-width:40em}
+.notes li{background:var(--surface); border:2px solid var(--ink); border-radius:12px; padding:10px 14px}
+
+/* ---------- QUIZ ---------- */
+.qcard{margin-top:26px; background:var(--surface); border:3px solid var(--ink); border-radius:22px; padding:20px 18px; box-shadow:6px 6px 0 var(--shadow); max-width:620px}
+.prog{font-weight:800; color:var(--ink2); font-size:.9rem}
+.qtext{margin:12px 0 18px; font-family:var(--display); font-size:1.28rem; line-height:1.25; overflow-wrap:anywhere}
+.opts{display:grid; gap:9px}
+.opt{display:flex; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; font-weight:800; color:var(--ink); background:var(--surface2);
+  border:2px solid var(--ink); border-radius:12px; padding:11px 14px; cursor:pointer; min-height:48px}
+.opt:hover:not(:disabled){background:var(--sun); color:#2a1c00}
+.opt:disabled{cursor:default}
+.dot{width:16px; height:16px; border-radius:50%; background:var(--dc); border:2px solid var(--ink); flex:none}
+.opt .mark{margin-left:auto}
+.opt.right{background:var(--c-gerard); color:#fff}
+.opt.wrong{background:var(--rope-a); color:#fff}
+.fb{margin-top:16px; min-height:3.2em}
+.btn{font:inherit; font-weight:800; background:var(--ink); color:var(--bg); border:0; border-radius:12px; padding:12px 22px; cursor:pointer; min-height:48px}
+.btn:hover{background:var(--rope-a); color:#fff}
+.result h3{font-size:1.6rem; margin:6px 0 8px}
+
+footer{padding:50px 0 60px; font-size:.88rem; color:var(--ink2); max-width:44em}
+
+@media (max-width:420px){
+  body{font-size:16.5px}
+  .mono{width:78px; height:78px; font-size:2.7rem}
+  .ovr{font-size:2.7rem}
+}
+@media (prefers-reduced-motion: reduce){
+  .swimmer{animation:none}
+  .card-inner{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>El Bar de Pepe</h1>
+  <p class="sub">Cinc amics, una piscina, un bar que va i ve, i 64.495 missatges entre el setembre del 2021 i l'octubre del 2026. Això és el que han deixat escrit.</p>
+
+  <div class="pool" role="group" aria-label="Cursa de missatges entre els cinc integrants">
+    <div class="pool-title">La cursa dels missatges</div>
+    <div id="lanes"><div class="lane"><div class="lane-label"><span>Jaume</span><span>19.123</span></div><div class="lane-track"><div class="swimmer" style="--p:1.0000;--n:0;background:var(--c-jaume);color:var(--on-jaume)">Ja</div></div></div><div class="lane"><div class="lane-label"><span>Aleix</span><span>18.978</span></div><div class="lane-track"><div class="swimmer" style="--p:0.9924;--n:1;background:var(--c-aleix);color:var(--on-aleix)">Al</div></div></div><div class="lane"><div class="lane-label"><span>Ferry</span><span>13.183</span></div><div class="lane-track"><div class="swimmer" style="--p:0.6894;--n:2;background:var(--c-ferry);color:var(--on-ferry)">Fe</div></div></div><div class="lane"><div class="lane-label"><span>Guillem</span><span>7.091</span></div><div class="lane-track"><div class="swimmer" style="--p:0.3708;--n:3;background:var(--c-guillem);color:var(--on-guillem)">Gu</div></div></div><div class="lane"><div class="lane-label"><span>Gerard</span><span>6.116</span></div><div class="lane-track"><div class="swimmer" style="--p:0.3198;--n:4;background:var(--c-gerard);color:var(--on-gerard)">Ge</div></div></div></div>
+    <p class="pool-note">Cada nedador arriba tan lluny com missatges ha escrit. El Jaume guanya a l'Aleix per només 145.</p>
+  </div>
+</header>
+
+<section id="fitxatges">
+  <h2>Els cinc fitxatges</h2>
+  <p class="lead">Cada carta porta les notes que s'ha guanyat als missatges de veritat. Toca-la per girar-la i llegir l'informe d'scouting.</p>
+  <div class="cards" id="cards"><div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Carta de Aleix. Toca per girar-la." style="--pc: var(--c-aleix); --on: var(--on-aleix); --pc-text: var(--c-aleix);"><div class="card-inner"><div class="face front"><div class="band"><div><div class="ovr">67</div><div class="pos">MÍS</div></div><div class="band-mid"></div><div class="mono" aria-hidden="true">A</div></div><div class="body"><div><div class="name">Aleix</div><div class="epi">El Míster</div><div class="alias">Director esportiu, entrenador i amo del «correcte».</div></div><div class="stats"><div class="stat"><div class="stat-row"><span>Teclat</span><b>98</b></div><div class="bar"><i style="--v:98"></i></div></div><div class="stat"><div class="stat-row"><span>Iniciativa</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div><div class="stat"><div class="stat-row"><span>Reflexos</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div><div class="stat"><div class="stat-row"><span>Àudios</span><b>46</b></div><div class="bar"><i style="--v:46"></i></div></div><div class="stat"><div class="stat-row"><span>Nit</span><b>50</b></div><div class="bar"><i style="--v:50"></i></div></div><div class="stat"><div class="stat-row"><span>Riure</span><b>64</b></div><div class="bar"><i style="--v:64"></i></div></div></div><div class="quote">«Que gane el mejor»</div><div class="hint">Toca per girar la carta</div></div></div><div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">67</div><div class="pos">MÍS</div></div><div class="band-mid"><h3>Informe d'scouting</h3></div><div></div></div><div class="body"><ul class="facts"><li>Ha obert 558 de les 1.811 converses del xat. Ningú engega tant el motor.</li><li>Gairebé 4 de cada 10 paraules del xat són seves: 125.607.</li><li>«Correcte» com a missatge sol: 182 vegades. El següent no arriba a 36.</li><li>El 84% dels seus emojis són un 😂.</li><li>Només ha esborrat 1 missatge en cinc anys. Els altres, entre 8 i 14.</li></ul><div class="best">Millor en: Iniciativa (99)</div></div></div></div></div><div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Carta de Jaume. Toca per girar-la." style="--pc: var(--c-jaume); --on: var(--on-jaume); --pc-text: var(--ink);"><div class="card-inner"><div class="face front"><div class="band"><div><div class="ovr">85</div><div class="pos">MIG</div></div><div class="band-mid"><span class="gold-tag">Carta daurada</span></div><div class="mono" aria-hidden="true">J</div></div><div class="body"><div><div class="name">Jaume</div><div class="epi">La Ràdio</div><div class="alias">Ràfegues, àudios i plans per sortir.</div></div><div class="stats"><div class="stat"><div class="stat-row"><span>Teclat</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div><div class="stat"><div class="stat-row"><span>Iniciativa</span><b>96</b></div><div class="bar"><i style="--v:96"></i></div></div><div class="stat"><div class="stat-row"><span>Reflexos</span><b>47</b></div><div class="bar"><i style="--v:47"></i></div></div><div class="stat"><div class="stat-row"><span>Àudios</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div><div class="stat"><div class="stat-row"><span>Nit</span><b>84</b></div><div class="bar"><i style="--v:84"></i></div></div><div class="stat"><div class="stat-row"><span>Riure</span><b>84</b></div><div class="bar"><i style="--v:84"></i></div></div></div><div class="quote">«Pot ser la vuelta del bar de pepe»</div><div class="hint">Toca per girar la carta</div></div></div><div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">85</div><div class="pos">MIG</div></div><div class="band-mid"><h3>Informe d'scouting</h3></div><div></div></div><div class="body"><ul class="facts"><li>302 àudios: el 64% de totes les notes de veu del xat.</li><li>El «😂😂😂😂» sol, 211 vegades.</li><li>Uns 250 plans llançats («voleu anar...?», «quedem?»). El campió de convocar.</li><li>«Sii» o «siii» com a resposta única: 197 vegades. Mai un sí curt.</li><li>29 de maig del 2024: 153 missatges seus en un sol dia, el de la inauguració.</li></ul><div class="best">Millor en: Teclat i Àudios (99)</div></div></div></div></div><div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Carta de Ferry. Toca per girar-la." style="--pc: var(--c-ferry); --on: var(--on-ferry); --pc-text: var(--c-ferry);"><div class="card-inner"><div class="face front"><div class="band"><div><div class="ovr">68</div><div class="pos">DAV</div></div><div class="band-mid"></div><div class="mono" aria-hidden="true">F</div></div><div class="body"><div><div class="name">Ferry</div><div class="epi">L'Informador</div><div class="alias">Té informació. Té TikToks. Té hahahaha.</div></div><div class="stats"><div class="stat"><div class="stat-row"><span>Teclat</span><b>74</b></div><div class="bar"><i style="--v:74"></i></div></div><div class="stat"><div class="stat-row"><span>Iniciativa</span><b>88</b></div><div class="bar"><i style="--v:88"></i></div></div><div class="stat"><div class="stat-row"><span>Reflexos</span><b>52</b></div><div class="bar"><i style="--v:52"></i></div></div><div class="stat"><div class="stat-row"><span>Àudios</span><b>65</b></div><div class="bar"><i style="--v:65"></i></div></div><div class="stat"><div class="stat-row"><span>Nit</span><b>82</b></div><div class="bar"><i style="--v:82"></i></div></div><div class="stat"><div class="stat-row"><span>Riure</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div></div><div class="quote">«Tinc possible informacio que us interessa»</div><div class="hint">Toca per girar la carta</div></div></div><div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">68</div><div class="pos">DAV</div></div><div class="band-mid"><h3>Informe d'scouting</h3></div><div></div></div><div class="body"><ul class="facts"><li>156 TikToks compartits: dos de cada tres del grup.</li><li>«hahahaha» sol, 148 vegades. «hahahahaha», 87 més. El riure a dues escales.</li><li>Es menja la primera lletra: «ueno», «stic», «steu», «jasta».</li><li>1 de juny del 2023 va obrir la roda de premsa. Aquell dia: 416 missatges.</li><li>El seu missatge més llarg (1.040 caràcters) és el qüestionari del 19 de juny del 2023: «Esteu disposats a sacrificar tot l'estiu?»</li></ul><div class="best">Millor en: Iniciativa (88)</div></div></div></div></div><div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Carta de Guillem. Toca per girar-la." style="--pc: var(--c-guillem); --on: var(--on-guillem); --pc-text: var(--c-guillem);"><div class="card-inner"><div class="face front"><div class="band"><div><div class="ovr">69</div><div class="pos">CAP</div></div><div class="band-mid"></div><div class="mono" aria-hidden="true">G</div></div><div class="body"><div><div class="name">Guillem</div><div class="epi">El Fundador</div><div class="alias">També conegut com a Wilx.</div></div><div class="stats"><div class="stat"><div class="stat-row"><span>Teclat</span><b>49</b></div><div class="bar"><i style="--v:49"></i></div></div><div class="stat"><div class="stat-row"><span>Iniciativa</span><b>54</b></div><div class="bar"><i style="--v:54"></i></div></div><div class="stat"><div class="stat-row"><span>Reflexos</span><b>70</b></div><div class="bar"><i style="--v:70"></i></div></div><div class="stat"><div class="stat-row"><span>Àudios</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div><div class="stat"><div class="stat-row"><span>Nit</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div><div class="stat"><div class="stat-row"><span>Riure</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div></div><div class="quote">«Em faran clausulazo a mi tambe 😂»</div><div class="hint">Toca per girar la carta</div></div></div><div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">69</div><div class="pos">CAP</div></div><div class="band-mid"><h3>Informe d'scouting</h3></div><div></div></div><div class="body"><ul class="facts"><li>Va crear el grup el 27 de juliol del 2017.</li><li>El que més riu: 17,5% dels seus missatges porten 😂, jaja o jsjs.</li><li>El més nocturn (11,8% entre les 23 h i les 4 h) i el menys matiner (0,9% entre les 6 h i les 10 h).</li><li>El rei de les rectificacions: 43 missatges editats.</li><li>3 de juny del 2023: escriu a l'alcalde en nom del jovent. Al fantasy, president del «Sarri FC».</li></ul><div class="best">Millor en: Nit i Riure (99)</div></div></div></div></div><div class="card" role="button" tabindex="0" aria-pressed="false" aria-label="Carta de Gerard. Toca per girar-la." style="--pc: var(--c-gerard); --on: var(--on-gerard); --pc-text: var(--c-gerard);"><div class="card-inner"><div class="face front"><div class="band"><div><div class="ovr">62</div><div class="pos">LLI</div></div><div class="band-mid"></div><div class="mono" aria-hidden="true">G</div></div><div class="body"><div><div class="name">Gerard</div><div class="epi">El Lliure</div><div class="alias">També conegut com a Rider.</div></div><div class="stats"><div class="stat"><div class="stat-row"><span>Teclat</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div><div class="stat"><div class="stat-row"><span>Iniciativa</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div><div class="stat"><div class="stat-row"><span>Reflexos</span><b>99</b></div><div class="bar"><i style="--v:99"></i></div></div><div class="stat"><div class="stat-row"><span>Àudios</span><b>46</b></div><div class="bar"><i style="--v:46"></i></div></div><div class="stat"><div class="stat-row"><span>Nit</span><b>45</b></div><div class="bar"><i style="--v:45"></i></div></div><div class="stat"><div class="stat-row"><span>Riure</span><b>92</b></div><div class="bar"><i style="--v:92"></i></div></div></div><div class="quote">«Botifarra i beure?»</div><div class="hint">Toca per girar la carta</div></div></div><div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">62</div><div class="pos">LLI</div></div><div class="band-mid"><h3>Informe d'scouting</h3></div><div></div></div><div class="body"><ul class="facts"><li>Mediana de resposta: 16 segons. El segon més ràpid en triga 28.</li><li>Només ha obert 95 de 1.811 converses, però sempre arriba al rebot.</li><li>Fa els cartells: el 28 de maig del 2024 l'Aleix li demana que vagi preparant el de la inauguració.</li><li>Transport oficial: «jo t'hi porto» (20 de juliol del 2026).</li><li>18 de desembre del 2022, final del Mundial: 85 missatges, el seu rècord. Entre les 5 i les 7 del matí, cap en cinc anys.</li></ul><div class="best">Millor en: Reflexos (99)</div></div></div></div></div></div>
+  <details class="how">
+    <summary>Com es calculen les notes</summary>
+    <ul>
+      <li><b>Teclat:</b> missatges escrits en total.</li>
+      <li><b>Iniciativa:</b> converses obertes (després de 3 hores de silenci).</li>
+      <li><b>Reflexos:</b> temps mitjà de resposta. Com més ràpid, més nota.</li>
+      <li><b>Àudios:</b> notes de veu enviades.</li>
+      <li><b>Nit:</b> percentatge de missatges entre les 23 h i les 4 h.</li>
+      <li><b>Riure:</b> percentatge de missatges amb jaja, haha, jsjs o 😂.</li>
+      <li>Cada nota va de 45 a 99, comparant els cinc entre ells. La mitjana és la nota gran de la carta.</li>
+    </ul>
+  </details>
+</section>
+
+<section id="cronologia">
+  <h2>De buidar congeladors a la botifarra</h2>
+  <p class="lead">La història del xat, escrita pel xat.</p>
+  <ol class="tl" id="tl"><li><time>27 de juliol del 2017</time><h3>Neix el grup</h3><p>El Guillem crea el grup. Durant quatre anys no se sap res: el xat que tenim comença el 9 de setembre del 2021.</p></li><li><time>10 de setembre del 2021</time><h3>Es tanca el primer bar</h3><p>El Gerard obre el dia: «avui hem de portar la barbacoa i buidar els congeladors». El Guillem, una mica després: «aleix baixa una pala».</p></li><li><time>13 de setembre del 2021</time><h3>Neix la idea</h3><p>El Jaume ho pregunta: i si li diem a l'alcalde que ens deixi el bar com a local durant l'any?</p></li><li><time>Juny del 2022</time><h3>Les clàusules</h3><p>Neteja, un any amb pròrroga, pagar l'autònom, decibels, festa major, endoll trifàsic. El Gerard sobre el toldo: «una tela de merda». El 7 de juny, el Jaume: «Adeu bar».</p></li><li><time>18 de desembre del 2022</time><h3>Final del Mundial</h3><p>417 missatges en un sol dia. El Gerard, al mig del partit: «quina calma».</p><span class="tag">417 missatges</span></li><li><time>Març del 2023</time><h3>La Kings League</h3><p>L'Aleix confessa que prefereix mirar el mercat de la Kings que el futbol normal.</p></li><li><time>1 al 19 de juny del 2023</time><h3>Setmana de negociacions</h3><p>El Ferry diu que té informació (1 de juny). El Guillem escriu a l'alcalde (3). L'Aleix té «un presentimiento dolent» (5). El Ferry llança el qüestionari de quatre preguntes (19).</p><span class="tag">416 i 414 missatges els dies 1 i 19</span></li><li><time>Setembre del 2023</time><h3>La guerra del mercat</h3><p>Clausulazos, ofertes i el «Sarri FC» del Guillem declarant intransferible un extrem. 390 missatges el 26 de setembre.</p></li><li><time>9 d'abril del 2024</time><h3>La sentència</h3><p>El Jaume escriu: «Pot ser la vuelta del bar de pepe».</p></li><li><time>Maig i juny del 2024</time><h3>Operació inauguració</h3><p>Cartell, logo, enquesta d'happy hour, bingo musical, botifarra, torneig i un horari de DJs. El 29 de maig, rècord de tots els temps.</p><span class="tag">446 missatges en un dia</span></li><li><time>Juliol del 2024</time><h3>Silenci de ràdio</h3><p>El xat s'apaga: 133 missatges en tot el mes. Algú estava ocupat.</p></li><li><time>20 de desembre del 2024</time><h3>El xat fa de vestidor</h3><p>El missatge més llarg de la història (1.982 caràcters) és un comunicat als pares dels jugadors d'un equip de poble.</p></li><li><time>Juliol del 2026</time><h3>El xat ressuscita</h3><p>687 missatges en un mes: Mundial, plans i piscina. L'Aleix, el 15: «No hem perdut una final mai».</p></li><li><time>28 de setembre del 2026</time><h3>Declaració de principis</h3><p>L'Aleix: «ja li he dit que no vinc a ficar conos i omplir aigues».</p></li><li><time>3 d'octubre del 2026</time><h3>L'últim missatge (de moment)</h3><p>El Jaume: «Voleu anar al local a veure españita?» El Guillem: «jo tinc una festa a st Guim». Alguns mites no moren.</p></li></ol>
+</section>
+
+<section id="nit">
+  <h2>El rellotge de la nit</h2>
+  <p class="lead">A quina hora escriu cadascú? Com més fosc el quadre, més missatges. Toca un quadre per veure el nombre.</p>
+  <div class="clock">
+    <div id="clock"><div class="crow"><span class="cname">Aleix</span><div class="cells" style="--cc: var(--c-aleix);"><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 0 h: 179 missatges" style="--i: 0.082;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 1 h: 22 missatges" style="--i: 0.010;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 2 h: 3 missatges" style="--i: 0.001;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 3 h: 7 missatges" style="--i: 0.003;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 4 h: 9 missatges" style="--i: 0.004;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 5 h: 10 missatges" style="--i: 0.005;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 6 h: 19 missatges" style="--i: 0.009;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 7 h: 49 missatges" style="--i: 0.022;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 8 h: 256 missatges" style="--i: 0.117;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 9 h: 437 missatges" style="--i: 0.200;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 10 h: 771 missatges" style="--i: 0.353;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 11 h: 1.031 missatges" style="--i: 0.472;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 12 h: 1.107 missatges" style="--i: 0.507;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 13 h: 1.299 missatges" style="--i: 0.595;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 14 h: 1.270 missatges" style="--i: 0.582;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 15 h: 1.030 missatges" style="--i: 0.472;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 16 h: 809 missatges" style="--i: 0.371;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 17 h: 810 missatges" style="--i: 0.371;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 18 h: 1.005 missatges" style="--i: 0.460;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 19 h: 1.306 missatges" style="--i: 0.598;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 20 h: 1.582 missatges" style="--i: 0.725;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 21 h: 2.079 missatges" style="--i: 0.952;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 22 h: 2.183 missatges" style="--i: 1.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Aleix, a les 23 h: 1.228 missatges" style="--i: 0.563;"></button></div></div><div class="crow"><span class="cname">Jaume</span><div class="cells" style="--cc: var(--c-jaume);"><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 0 h: 297 missatges" style="--i: 0.161;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 1 h: 83 missatges" style="--i: 0.045;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 2 h: 19 missatges" style="--i: 0.010;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 3 h: 5 missatges" style="--i: 0.003;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 4 h: 7 missatges" style="--i: 0.004;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 5 h: 10 missatges" style="--i: 0.005;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 6 h: 21 missatges" style="--i: 0.011;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 7 h: 55 missatges" style="--i: 0.030;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 8 h: 95 missatges" style="--i: 0.051;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 9 h: 273 missatges" style="--i: 0.148;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 10 h: 729 missatges" style="--i: 0.395;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 11 h: 1.092 missatges" style="--i: 0.591;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 12 h: 1.063 missatges" style="--i: 0.576;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 13 h: 1.369 missatges" style="--i: 0.741;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 14 h: 1.389 missatges" style="--i: 0.752;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 15 h: 1.174 missatges" style="--i: 0.636;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 16 h: 753 missatges" style="--i: 0.408;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 17 h: 779 missatges" style="--i: 0.422;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 18 h: 1.059 missatges" style="--i: 0.573;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 19 h: 1.319 missatges" style="--i: 0.714;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 20 h: 1.572 missatges" style="--i: 0.851;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 21 h: 1.647 missatges" style="--i: 0.892;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 22 h: 1.847 missatges" style="--i: 1.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Jaume, a les 23 h: 1.508 missatges" style="--i: 0.816;"></button></div></div><div class="crow"><span class="cname">Ferry</span><div class="cells" style="--cc: var(--c-ferry);"><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 0 h: 250 missatges" style="--i: 0.139;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 1 h: 38 missatges" style="--i: 0.021;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 2 h: 12 missatges" style="--i: 0.007;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 3 h: 29 missatges" style="--i: 0.016;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 4 h: 3 missatges" style="--i: 0.002;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 5 h: 5 missatges" style="--i: 0.003;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 6 h: 22 missatges" style="--i: 0.012;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 7 h: 48 missatges" style="--i: 0.027;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 8 h: 77 missatges" style="--i: 0.043;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 9 h: 259 missatges" style="--i: 0.144;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 10 h: 490 missatges" style="--i: 0.272;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 11 h: 810 missatges" style="--i: 0.450;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 12 h: 643 missatges" style="--i: 0.357;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 13 h: 723 missatges" style="--i: 0.401;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 14 h: 846 missatges" style="--i: 0.470;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 15 h: 739 missatges" style="--i: 0.410;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 16 h: 346 missatges" style="--i: 0.192;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 17 h: 573 missatges" style="--i: 0.318;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 18 h: 614 missatges" style="--i: 0.341;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 19 h: 878 missatges" style="--i: 0.488;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 20 h: 1.075 missatges" style="--i: 0.597;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 21 h: 1.401 missatges" style="--i: 0.778;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 22 h: 1.801 missatges" style="--i: 1.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Ferry, a les 23 h: 985 missatges" style="--i: 0.547;"></button></div></div><div class="crow"><span class="cname">Guillem</span><div class="cells" style="--cc: var(--c-guillem);"><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 0 h: 150 missatges" style="--i: 0.188;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 1 h: 31 missatges" style="--i: 0.039;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 2 h: 7 missatges" style="--i: 0.009;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 3 h: 2 missatges" style="--i: 0.003;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 4 h: 9 missatges" style="--i: 0.011;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 5 h: 3 missatges" style="--i: 0.004;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 6 h: 4 missatges" style="--i: 0.005;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 7 h: 5 missatges" style="--i: 0.006;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 8 h: 29 missatges" style="--i: 0.036;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 9 h: 25 missatges" style="--i: 0.031;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 10 h: 153 missatges" style="--i: 0.192;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 11 h: 260 missatges" style="--i: 0.326;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 12 h: 302 missatges" style="--i: 0.379;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 13 h: 490 missatges" style="--i: 0.615;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 14 h: 532 missatges" style="--i: 0.668;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 15 h: 386 missatges" style="--i: 0.484;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 16 h: 359 missatges" style="--i: 0.450;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 17 h: 309 missatges" style="--i: 0.388;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 18 h: 410 missatges" style="--i: 0.514;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 19 h: 560 missatges" style="--i: 0.703;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 20 h: 677 missatges" style="--i: 0.849;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 21 h: 749 missatges" style="--i: 0.940;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 22 h: 797 missatges" style="--i: 1.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Guillem, a les 23 h: 619 missatges" style="--i: 0.777;"></button></div></div><div class="crow"><span class="cname">Gerard</span><div class="cells" style="--cc: var(--c-gerard);"><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 0 h: 74 missatges" style="--i: 0.102;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 1 h: 34 missatges" style="--i: 0.047;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 2 h: 4 missatges" style="--i: 0.006;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 3 h: 2 missatges" style="--i: 0.003;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 4 h: 1 missatges" style="--i: 0.001;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 5 h: 0 missatges" style="--i: 0.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 6 h: 0 missatges" style="--i: 0.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 7 h: 5 missatges" style="--i: 0.007;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 8 h: 13 missatges" style="--i: 0.018;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 9 h: 124 missatges" style="--i: 0.171;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 10 h: 247 missatges" style="--i: 0.340;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 11 h: 323 missatges" style="--i: 0.444;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 12 h: 442 missatges" style="--i: 0.608;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 13 h: 421 missatges" style="--i: 0.579;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 14 h: 401 missatges" style="--i: 0.552;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 15 h: 445 missatges" style="--i: 0.612;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 16 h: 228 missatges" style="--i: 0.314;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 17 h: 310 missatges" style="--i: 0.426;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 18 h: 293 missatges" style="--i: 0.403;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 19 h: 374 missatges" style="--i: 0.514;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 20 h: 446 missatges" style="--i: 0.613;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 21 h: 681 missatges" style="--i: 0.937;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 22 h: 727 missatges" style="--i: 1.000;"></button><button class="cell" type="button" aria-pressed="false" aria-label="Gerard, a les 23 h: 321 missatges" style="--i: 0.442;"></button></div></div></div>
+    <div class="axis"><i></i><div><span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span></div></div>
+    <p class="readout" id="readout" aria-live="polite">Toca un quadre.</p>
+  </div>
+  <ul class="notes">
+    <li>A les 22 h el xat bull: és l'hora forta de tots cinc.</li>
+    <li>A les 8 del matí només hi és l'Aleix: 256 missatges, contra 95 del Jaume i 13 del Gerard.</li>
+    <li>A les 3 de la matinada, el Ferry: 29 missatges. La resta, entre 2 i 7.</li>
+    <li>Entre les 5 i les 7 del matí, el Gerard no ha escrit mai. El son és sagrat.</li>
+  </ul>
+</section>
+
+<section id="quiz">
+  <h2>Qui ho va dir?</h2>
+  <p class="lead">Deu frases reals del xat, tal com es van escriure. Endevina de qui són.</p>
+  <div class="qcard" id="qcard"><p><b>El test necessita JavaScript.</b> Obre aquest fitxer amb Chrome o Safari (no amb la vista prèvia del mòbil) per poder jugar.</p></div>
+</section>
+
+<footer>
+  Notes i nombres calculats amb l'exportació del xat (del 9 de setembre del 2021 al 3 d'octubre del 2026). Els àlies Rider i Wilx s'han deduït de qui contestava quan l'Aleix els cridava, així que si algun està girat, hi ha marge de fer-hi una esmena.
+</footer>
+</div>
+
+<script>
+(function(){
+document.documentElement.classList.remove('no-js');
+var P=[
+ {id:'aleix',name:'Aleix',short:'Al',msgs:19123-145,pc:'var(--c-aleix)',on:'var(--on-aleix)',ovr:67,pos:'MÍS',
+  epi:'El Míster',alias:'Director esportiu, entrenador i amo del «correcte».',
+  stats:[98,99,45,46,50,64],quote:'«Que gane el mejor»',best:'Millor en: Iniciativa (99)',
+  facts:['Ha obert 558 de les 1.811 converses del xat. Ningú engega tant el motor.','Gairebé 4 de cada 10 paraules del xat són seves: 125.607.','«Correcte» com a missatge sol: 182 vegades. El següent no arriba a 36.','El 84% dels seus emojis són un 😂.','Només ha esborrat 1 missatge en cinc anys. Els altres, entre 8 i 14.']},
+ {id:'jaume',name:'Jaume',short:'Ja',msgs:19123,pc:'var(--c-jaume)',on:'var(--on-jaume)',ovr:85,pos:'MIG',gold:true,
+  epi:'La Ràdio',alias:'Ràfegues, àudios i plans per sortir.',
+  stats:[99,96,47,99,84,84],quote:'«Pot ser la vuelta del bar de pepe»',best:'Millor en: Teclat i Àudios (99)',
+  facts:['302 àudios: el 64% de totes les notes de veu del xat.','El «😂😂😂😂» sol, 211 vegades.','Uns 250 plans llançats («voleu anar...?», «quedem?»). El campió de convocar.','«Sii» o «siii» com a resposta única: 197 vegades. Mai un sí curt.','29 de maig del 2024: 153 missatges seus en un sol dia, el de la inauguració.']},
+ {id:'ferry',name:'Ferry',short:'Fe',msgs:13183,pc:'var(--c-ferry)',on:'var(--on-ferry)',ovr:68,pos:'DAV',
+  epi:'L\'Informador',alias:'Té informació. Té TikToks. Té hahahaha.',
+  stats:[74,88,52,65,82,45],quote:'«Tinc possible informacio que us interessa»',best:'Millor en: Iniciativa (88)',
+  facts:['156 TikToks compartits: dos de cada tres del grup.','«hahahaha» sol, 148 vegades. «hahahahaha», 87 més. El riure a dues escales.','Es menja la primera lletra: «ueno», «stic», «steu», «jasta».','1 de juny del 2023 va obrir la roda de premsa. Aquell dia: 416 missatges.','El seu missatge més llarg (1.040 caràcters) és el qüestionari del 19 de juny del 2023: «Esteu disposats a sacrificar tot l\'estiu?»']},
+ {id:'guillem',name:'Guillem',short:'Gu',msgs:7091,pc:'var(--c-guillem)',on:'var(--on-guillem)',ovr:69,pos:'CAP',
+  epi:'El Fundador',alias:'També conegut com a Wilx.',
+  stats:[49,54,70,45,99,99],quote:'«Em faran clausulazo a mi tambe 😂»',best:'Millor en: Nit i Riure (99)',
+  facts:['Va crear el grup el 27 de juliol del 2017.','El que més riu: 17,5% dels seus missatges porten 😂, jaja o jsjs.','El més nocturn (11,8% entre les 23 h i les 4 h) i el menys matiner (0,9% entre les 6 h i les 10 h).','El rei de les rectificacions: 43 missatges editats.','3 de juny del 2023: escriu a l\'alcalde en nom del jovent. Al fantasy, president del «Sarri FC».']},
+ {id:'gerard',name:'Gerard',short:'Ge',msgs:6116,pc:'var(--c-gerard)',on:'var(--on-gerard)',ovr:62,pos:'LLI',
+  epi:'El Lliure',alias:'També conegut com a Rider.',
+  stats:[45,45,99,46,45,92],quote:'«Botifarra i beure?»',best:'Millor en: Reflexos (99)',
+  facts:['Mediana de resposta: 16 segons. El segon més ràpid en triga 28.','Només ha obert 95 de 1.811 converses, però sempre arriba al rebot.','Fa els cartells: el 28 de maig del 2024 l\'Aleix li demana que vagi preparant el de la inauguració.','Transport oficial: «jo t\'hi porto» (20 de juliol del 2026).','18 de desembre del 2022, final del Mundial: 85 missatges, el seu rècord. Entre les 5 i les 7 del matí, cap en cinc anys.']}
+];
+var LABELS=['Teclat','Iniciativa','Reflexos','Àudios','Nit','Riure'];
+function fmt(n){return n.toLocaleString('ca-ES')}
+function el(t,c,h){var e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e}
+
+/* ---- hero lanes ---- */
+var lanes=document.getElementById('lanes'), max=19123; lanes.innerHTML='';
+P.slice().sort(function(a,b){return b.msgs-a.msgs}).forEach(function(p,i){
+  var real={aleix:18978,jaume:19123,ferry:13183,guillem:7091,gerard:6116}[p.id];
+  var l=el('div','lane');
+  l.innerHTML='<div class="lane-label"><span>'+p.name+'</span><span>'+fmt(real)+'</span></div>'+
+   '<div class="lane-track"><div class="swimmer" style="--p:'+(real/max).toFixed(4)+';--n:'+i+';background:'+p.pc+';color:'+p.on+'">'+p.short+'</div></div>';
+  lanes.appendChild(l);
+});
+
+/* ---- cards ---- */
+var cards=document.getElementById('cards'); cards.innerHTML='';
+P.forEach(function(p){
+  var c=el('div','card'); c.setAttribute('role','button'); c.setAttribute('tabindex','0'); c.setAttribute('aria-pressed','false');
+  c.setAttribute('aria-label','Carta de '+p.name+'. Toca per girar-la.');
+  c.style.setProperty('--pc',p.pc); c.style.setProperty('--on',p.on);
+  c.style.setProperty('--pc-text',p.id==='jaume'?'var(--ink)':p.pc);
+  var st=p.stats.map(function(v,i){return '<div class="stat"><div class="stat-row"><span>'+LABELS[i]+'</span><b>'+v+'</b></div><div class="bar"><i style="--v:'+v+'"></i></div></div>'}).join('');
+  var front='<div class="face front"><div class="band"><div><div class="ovr">'+p.ovr+'</div><div class="pos">'+p.pos+'</div></div>'+
+    '<div class="band-mid">'+(p.gold?'<span class="gold-tag">Carta daurada</span>':'')+'</div><div class="mono" aria-hidden="true">'+p.name[0]+'</div></div>'+
+    '<div class="body"><div><div class="name">'+p.name+'</div><div class="epi">'+p.epi+'</div><div class="alias">'+p.alias+'</div></div>'+
+    '<div class="stats">'+st+'</div><div class="quote">'+p.quote+'</div><div class="hint">Toca per girar la carta</div></div></div>';
+  var back='<div class="face back" aria-hidden="true"><div class="band"><div><div class="ovr">'+p.ovr+'</div><div class="pos">'+p.pos+'</div></div><div class="band-mid"><h3>Informe d\'scouting</h3></div><div></div></div>'+
+    '<div class="body"><ul class="facts">'+p.facts.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><div class="best">'+p.best+'</div></div></div>';
+  c.innerHTML='<div class="card-inner">'+front+back+'</div>';
+  function toggle(){
+    var f=c.classList.toggle('is-flipped'); c.setAttribute('aria-pressed',f?'true':'false');
+    c.querySelector('.front').setAttribute('aria-hidden',f?'true':'false');
+    c.querySelector('.back').setAttribute('aria-hidden',f?'false':'true');
+  }
+  c.addEventListener('click',toggle);
+  c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+  cards.appendChild(c);
+});
+
+/* ---- timeline ---- */
+var T=[
+ ['27 de juliol del 2017','Neix el grup','El Guillem crea el grup. Durant quatre anys no se sap res: el xat que tenim comença el 9 de setembre del 2021.'],
+ ['10 de setembre del 2021','Es tanca el primer bar','El Gerard obre el dia: «avui hem de portar la barbacoa i buidar els congeladors». El Guillem, una mica després: «aleix baixa una pala».'],
+ ['13 de setembre del 2021','Neix la idea','El Jaume ho pregunta: i si li diem a l\'alcalde que ens deixi el bar com a local durant l\'any?'],
+ ['Juny del 2022','Les clàusules','Neteja, un any amb pròrroga, pagar l\'autònom, decibels, festa major, endoll trifàsic. El Gerard sobre el toldo: «una tela de merda». El 7 de juny, el Jaume: «Adeu bar».'],
+ ['18 de desembre del 2022','Final del Mundial','417 missatges en un sol dia. El Gerard, al mig del partit: «quina calma».','417 missatges'],
+ ['Març del 2023','La Kings League','L\'Aleix confessa que prefereix mirar el mercat de la Kings que el futbol normal.'],
+ ['1 al 19 de juny del 2023','Setmana de negociacions','El Ferry diu que té informació (1 de juny). El Guillem escriu a l\'alcalde (3). L\'Aleix té «un presentimiento dolent» (5). El Ferry llança el qüestionari de quatre preguntes (19).','416 i 414 missatges els dies 1 i 19'],
+ ['Setembre del 2023','La guerra del mercat','Clausulazos, ofertes i el «Sarri FC» del Guillem declarant intransferible un extrem. 390 missatges el 26 de setembre.'],
+ ['9 d\'abril del 2024','La sentència','El Jaume escriu: «Pot ser la vuelta del bar de pepe».'],
+ ['Maig i juny del 2024','Operació inauguració','Cartell, logo, enquesta d\'happy hour, bingo musical, botifarra, torneig i un horari de DJs. El 29 de maig, rècord de tots els temps.','446 missatges en un dia'],
+ ['Juliol del 2024','Silenci de ràdio','El xat s\'apaga: 133 missatges en tot el mes. Algú estava ocupat.'],
+ ['20 de desembre del 2024','El xat fa de vestidor','El missatge més llarg de la història (1.982 caràcters) és un comunicat als pares dels jugadors d\'un equip de poble.'],
+ ['Juliol del 2026','El xat ressuscita','687 missatges en un mes: Mundial, plans i piscina. L\'Aleix, el 15: «No hem perdut una final mai».'],
+ ['28 de setembre del 2026','Declaració de principis','L\'Aleix: «ja li he dit que no vinc a ficar conos i omplir aigues».'],
+ ['3 d\'octubre del 2026','L\'últim missatge (de moment)','El Jaume: «Voleu anar al local a veure españita?» El Guillem: «jo tinc una festa a st Guim». Alguns mites no moren.']
+];
+var tl=document.getElementById('tl'); tl.innerHTML='';
+T.forEach(function(t){
+  var li=el('li',null,'<time>'+t[0]+'</time><h3>'+t[1]+'</h3><p>'+t[2]+'</p>'+(t[3]?'<span class="tag">'+t[3]+'</span>':''));
+  tl.appendChild(li);
+});
+
+/* ---- clock ---- */
+var H={
+ aleix:[179,22,3,7,9,10,19,49,256,437,771,1031,1107,1299,1270,1030,809,810,1005,1306,1582,2079,2183,1228],
+ jaume:[297,83,19,5,7,10,21,55,95,273,729,1092,1063,1369,1389,1174,753,779,1059,1319,1572,1647,1847,1508],
+ ferry:[250,38,12,29,3,5,22,48,77,259,490,810,643,723,846,739,346,573,614,878,1075,1401,1801,985],
+ guillem:[150,31,7,2,9,3,4,5,29,25,153,260,302,490,532,386,359,309,410,560,677,749,797,619],
+ gerard:[74,34,4,2,1,0,0,5,13,124,247,323,442,421,401,445,228,310,293,374,446,681,727,321]
+};
+var clock=document.getElementById('clock'); clock.innerHTML=''; var readout=document.getElementById('readout'), sel=null;
+P.forEach(function(p){
+  var row=el('div','crow'); row.appendChild(el('span','cname',p.name));
+  var cells=el('div','cells'); cells.style.setProperty('--cc',p.pc);
+  var mx=Math.max.apply(null,H[p.id]);
+  H[p.id].forEach(function(v,h){
+    var b=el('button','cell'); b.type='button'; b.setAttribute('aria-pressed','false');
+    b.style.setProperty('--i',(v/mx).toFixed(3));
+    var label=p.name+', a les '+h+' h: '+fmt(v)+' missatges';
+    b.setAttribute('aria-label',label);
+    b.addEventListener('click',function(){
+      if(sel)sel.setAttribute('aria-pressed','false');
+      sel=b; b.setAttribute('aria-pressed','true'); readout.textContent=label+'.';
+    });
+    cells.appendChild(b);
+  });
+  row.appendChild(cells); clock.appendChild(row);
+});
+
+/* ---- quiz ---- */
+var Q=[
+ ['ferry','Tinc possible informacio que us interessa','1 de juny del 2023. Aquell dia, 416 missatges.'],
+ ['aleix','Fica el logo del carbu','29 de maig del 2024, preparant la inauguració.'],
+ ['jaume','Sisii heavyyy🥵🥵🥵🥵','12 de gener del 2022. Mai un sí curt.'],
+ ['guillem','Em faran clausulazo a mi tambe 😂','4 de setembre del 2022, temps de fantasy.'],
+ ['gerard','botifarra i beure?','29 de maig del 2024, el pla per a la barra.'],
+ ['jaume','Estem damunt dl bar mur mur','7 d\'abril del 2023.'],
+ ['gerard','mare meva otamendi','18 de desembre del 2022, final del Mundial.'],
+ ['ferry','Amb 20 anys sha de treballar i callar','19 de juny del 2023.'],
+ ['aleix','Aver si a mí pillar el bar hem pot vindre be que començare un canal de yt i aixi tindre contenido pero no se tinc un presentimiento dolent','5 de juny del 2023.'],
+ ['guillem','Bon dia, els directius de Sarri FC informem al senyor Ferran que Sávio Moreira de Oliveira més conegut com a Savinho és totalment intransferible, si voleu al jugador pagueu la clàusula. Moltes gràcies.','24 de setembre del 2023. President del Sarri FC.']
+];
+var qc=document.getElementById('qcard'), order, idx, score;
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function byId(id){return P.filter(function(p){return p.id===id})[0]}
+function start(){order=shuffle(Q); idx=0; score=0; show()}
+function show(){
+  var q=order[idx]; qc.innerHTML='';
+  qc.appendChild(el('div','prog','Pregunta '+(idx+1)+' de '+order.length+' · Encerts: '+score));
+  var bq=el('blockquote','qtext'); bq.style.margin='12px 0 18px'; bq.textContent='«'+q[1]+'»'; qc.appendChild(bq);
+  var opts=el('div','opts'); opts.setAttribute('role','group'); opts.setAttribute('aria-label','Qui ho va dir?');
+  var fb=el('p','fb'); fb.setAttribute('aria-live','polite');
+  P.forEach(function(p){
+    var b=el('button','opt','<span class="dot" style="--dc:'+p.pc+'"></span><span>'+p.name+'</span><span class="mark"></span>'); b.type='button';
+    b.addEventListener('click',function(){
+      var ok=p.id===q[0]; if(ok)score++;
+      Array.prototype.forEach.call(opts.children,function(o,i){
+        o.disabled=true;
+        if(P[i].id===q[0]){o.classList.add('right');o.querySelector('.mark').textContent='✓ Era ell'}
+        else if(P[i]===p){o.classList.add('wrong');o.querySelector('.mark').textContent='✗'}
+      });
+      fb.textContent=(ok?'Correcte! ':'Quasi. Era '+byId(q[0]).name+'. ')+q[2];
+      var n=el('button','btn',idx+1<order.length?'Següent':'Veure el resultat'); n.type='button';
+      n.addEventListener('click',function(){idx++; idx<order.length?show():end()});
+      qc.appendChild(n); n.focus();
+    });
+    opts.appendChild(b);
+  });
+  qc.appendChild(opts); qc.appendChild(fb);
+}
+function end(){
+  var t=score>=9?['Ets el sisè integrant','Coneixes el xat millor que el xat.']:score>=6?['Titular indiscutible','Has fet els deures. I els àudios.']:score>=3?['Suplent amb ganes','Encara et falta escoltar més àudios del Jaume.']:['Has entrat al xat per error','Torna-ho a provar. Ningú ho dirà a ningú.'];
+  qc.innerHTML='<div class="result"><div class="prog">Resultat final</div><h3>'+score+' de '+order.length+': '+t[0]+'</h3><p>'+t[1]+'</p></div>';
+  var b=el('button','btn','Torna a jugar'); b.type='button'; b.style.marginTop='18px'; b.addEventListener('click',start); qc.appendChild(b); b.focus();
+}
+start();
+})();
+</script>
+</body>
+</html>
